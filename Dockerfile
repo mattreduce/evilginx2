@@ -1,10 +1,8 @@
-FROM golang:1.13.1-alpine as build
+FROM golang:1.14.7-alpine as build
 
 RUN apk add --update \
     git \
   && rm -rf /var/cache/apk/*
-
-RUN wget -O /usr/local/bin/dep https://github.com/golang/dep/releases/download/v0.5.0/dep-linux-amd64 && chmod +x /usr/local/bin/dep
 
 WORKDIR /go/src/github.com/kgretzky/evilginx2
 
@@ -18,7 +16,7 @@ COPY . /go/src/github.com/kgretzky/evilginx2
 
 RUN go build -o ./bin/evilginx main.go
 
-FROM alpine:3.8
+FROM alpine:3.12
 
 RUN apk add --update \
     ca-certificates \
